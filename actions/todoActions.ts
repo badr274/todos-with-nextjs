@@ -18,7 +18,7 @@ export const getTodoListAction = async (userId: string | null) => {
     });
   } catch (error) {
     console.error("Error fetching todos:", error);
-    return null; // يمكنك إرجاع [] إذا كنت تفضل ذلك
+    return []; // يمكنك إرجاع [] إذا كنت تفضل ذلك
   }
 };
 
