@@ -27,7 +27,11 @@ import { z } from "zod";
 import { createTodoAction } from "@/actions/todoActions";
 import { useState } from "react";
 import Spinner from "./Spinner";
-const AddTodoDialog = () => {
+
+interface IProps {
+  userId: string | null;
+}
+const AddTodoDialog = ({ userId }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof todoFormSchema>>({
@@ -40,7 +44,7 @@ const AddTodoDialog = () => {
   });
   const onSubmit = async (data: z.infer<typeof todoFormSchema>) => {
     setLoading(true);
-    await createTodoAction(data);
+    await createTodoAction({ ...data, userId });
     setLoading(false);
     setOpen(false);
   };

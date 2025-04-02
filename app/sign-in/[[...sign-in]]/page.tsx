@@ -1,5 +1,9 @@
 import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
-  return <SignIn afterSignOutUrl={"/"} />;
+  return (
+    <div className="container mx-auto flex justify-center">
+      <SignIn />
+    </div>
+  );
 }

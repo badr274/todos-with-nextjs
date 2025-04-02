@@ -24,7 +24,7 @@ const TodosTableActions = ({ todo }: IProps) => {
       <Button
         size={"icon"}
         variant={"destructive"}
-        onClick={() => handleDelete(todo.id)}
+        onClick={() => handleDelete(todo.id as string)}
       >
         {loading ? <Spinner /> : <Trash size={16} />}
       </Button>

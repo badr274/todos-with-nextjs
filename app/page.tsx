@@ -1,15 +1,16 @@
 import { getTodoListAction } from "@/actions/todoActions";
 import AddTodoDialog from "@/components/AddTodoDialog";
-import { ModeToggle } from "@/components/ModeToggle";
 import TodoList from "@/components/TodoList";
+import { auth } from "@clerk/nextjs/server";
 
 const Home = async () => {
-  const todos = await getTodoListAction();
+  const { userId } = await auth();
+
+  const todos = await getTodoListAction(userId);
   return (
     <main className="container mx-auto">
-      <div className="flex items-center justify-between mt-2 mb-5">
-        <ModeToggle />
-        <AddTodoDialog />
+      <div className="text-right">
+        <AddTodoDialog userId={userId} />
       </div>
       <TodoList todos={todos} />
     </main>
