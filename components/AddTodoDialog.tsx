@@ -27,7 +27,7 @@ import { z } from "zod";
 import { createTodoAction } from "@/actions/todoActions";
 import { useState } from "react";
 import Spinner from "./Spinner";
-const AddTodoForm = () => {
+const AddTodoDialog = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof todoFormSchema>>({
@@ -96,7 +96,7 @@ const AddTodoForm = () => {
                 control={form.control}
                 name="completed"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -118,4 +118,4 @@ const AddTodoForm = () => {
   );
 };
 
-export default AddTodoForm;
+export default AddTodoDialog;

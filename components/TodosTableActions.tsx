@@ -1,15 +1,18 @@
 "use client";
 import { deleteTodoAction } from "@/actions/todoActions";
 import { Button } from "./ui/button";
-import { Pen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import Spinner from "./Spinner";
 import { useState } from "react";
+import EditTodoDialog from "./EditTodoDialog";
+import { ITodo } from "@/interfaces";
 
 interface IProps {
-  id: string;
+  todo: ITodo;
 }
-const TodosTableActions = ({ id }: IProps) => {
+const TodosTableActions = ({ todo }: IProps) => {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleDelete = async (id: string) => {
     setLoading(true);
     await deleteTodoAction(id);
@@ -17,13 +20,11 @@ const TodosTableActions = ({ id }: IProps) => {
   };
   return (
     <>
-      <Button size={"icon"} variant={"outline"}>
-        <Pen size={16} />
-      </Button>
+      <EditTodoDialog open={open} setOpen={setOpen} todo={todo} />
       <Button
         size={"icon"}
         variant={"destructive"}
-        onClick={() => handleDelete(id)}
+        onClick={() => handleDelete(todo.id)}
       >
         {loading ? <Spinner /> : <Trash size={16} />}
       </Button>

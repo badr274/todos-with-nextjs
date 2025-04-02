@@ -1,5 +1,5 @@
 import { getTodoListAction } from "@/actions/todoActions";
-import AddTodoForm from "@/components/AddTodoForm";
+import AddTodoDialog from "@/components/AddTodoDialog";
 import { ModeToggle } from "@/components/ModeToggle";
 import TodoList from "@/components/TodoList";
 
@@ -9,7 +9,7 @@ const Home = async () => {
     <main className="container mx-auto">
       <div className="flex items-center justify-between mt-2 mb-5">
         <ModeToggle />
-        <AddTodoForm />
+        <AddTodoDialog />
       </div>
       <TodoList todos={todos} />
     </main>

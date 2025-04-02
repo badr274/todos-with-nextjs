@@ -45,7 +45,7 @@ const TodoList = ({ todos }: IProps) => {
               )}
             </TableCell>
             <TableCell className="flex items-center justify-end space-x-2">
-              <TodosTableActions id={todo.id} />
+              <TodosTableActions todo={todo} />
             </TableCell>
           </TableRow>
         ))}
