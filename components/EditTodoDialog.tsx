@@ -115,7 +115,7 @@ const EditTodoDialog = ({ open, setOpen, todo }: IProps) => {
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        {...field}
+                        // {...field}
                       />
                     </FormControl>
                     <FormLabel>Completed</FormLabel>

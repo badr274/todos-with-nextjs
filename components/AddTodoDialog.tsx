@@ -105,7 +105,7 @@ const AddTodoDialog = ({ userId }: IProps) => {
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        {...field}
+                        // {...field}
                       />
                     </FormControl>
                     <FormLabel>Completed</FormLabel>
