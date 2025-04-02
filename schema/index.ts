@@ -13,4 +13,5 @@ export const todoFormSchema = z.object({
       message: "body must be at least 2 characters.",
     })
     .optional(),
+  completed: z.boolean(),
 });

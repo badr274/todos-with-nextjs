@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Plus } from "lucide-react";
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-// import { getTodoListAction } from "@/actions/todoActions";
 import {
   Form,
   FormControl,
@@ -25,19 +25,27 @@ import { useForm } from "react-hook-form";
 import { todoFormSchema } from "@/schema";
 import { z } from "zod";
 import { createTodoAction } from "@/actions/todoActions";
+import { useState } from "react";
+import Spinner from "./Spinner";
 const AddTodoForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof todoFormSchema>>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
       title: "",
       body: "",
+      completed: false,
     },
   });
   const onSubmit = async (data: z.infer<typeof todoFormSchema>) => {
+    setLoading(true);
     await createTodoAction(data);
+    setLoading(false);
+    setOpen(false);
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus />
@@ -63,9 +71,6 @@ const AddTodoForm = () => {
                     <FormControl>
                       <Input placeholder="shadcn" {...field} />
                     </FormControl>
-                    {/* <FormDescription>
-                  This is your public display name.
-                </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -83,15 +88,28 @@ const AddTodoForm = () => {
                         {...field}
                       />
                     </FormControl>
-                    {/* <FormDescription>
-                  You can <span>@mention</span> other users and
-                  organizations to link to them.
-                </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Save changes</Button>
+              <FormField
+                control={form.control}
+                name="completed"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormLabel>Completed</FormLabel>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">{loading ? <Spinner /> : "Save"}</Button>
             </form>
           </Form>
         </div>

@@ -1,34 +1,18 @@
+import { getTodoListAction } from "@/actions/todoActions";
 import AddTodoForm from "@/components/AddTodoForm";
 import { ModeToggle } from "@/components/ModeToggle";
+import TodoList from "@/components/TodoList";
 
-import Image from "next/image";
-
-const Home = () => {
-  // const todos = await getTodoListAction();
-  // const renderTodoList = todos.map((todo) => {
-  // return (
-  //     <div key={todo.id}>
-  //       <h1>{todo.title}</h1>
-  //       <p>{todo.body}</p>
-  //     </div>
-  //   );
-  // });
-
+const Home = async () => {
+  const todos = await getTodoListAction();
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
+    <main className="container mx-auto">
+      <div className="flex items-center justify-between mt-2 mb-5">
         <ModeToggle />
         <AddTodoForm />
-      </main>
-    </div>
+      </div>
+      <TodoList todos={todos} />
+    </main>
   );
 };
 export default Home;
